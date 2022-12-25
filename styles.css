@@ -50,6 +50,31 @@ body {
 .is-current {
 	animation: 1s infinite flash;
 }
+.options {
+	position: fixed;
+	bottom: 30px;
+	right: 30px;
+	border-radius: 50px;
+	background: #fff;
+	width: 50px;
+	height: 50px;
+	transition: all 0.4s;
+	background-image: url(hamburger.png);
+    background-position: center center;
+    background-size: 15px;
+    background-repeat: no-repeat;
+}
+.options:hover {
+	cursor: pointer;
+}
+.options.expanded {
+	width: 100%;
+    border-radius: 5px;
+    height: 400px;
+    background-position: 20px 20px;
+    bottom: 0;
+    right: 0;
+}
 @keyframes flash {
 	0% {
 		background: white;

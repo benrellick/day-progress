@@ -86,6 +86,12 @@
 			// Indicate the current minute 
 			minuteBlocks[currentTimeInMinutes].classList.add('is-current');
 
+			// Interactions
+			let options = document.querySelector('.options');
+			options.addEventListener('click', function() {
+				options.classList.toggle('expanded');
+			}, false);
+
 		});
 	</script>
 </head>
@@ -119,4 +125,5 @@
 	</div>
 	<div class="wrapper"></div>
 	<div class="overlay"></div>
+	<div class="options"></div>
 </body>
