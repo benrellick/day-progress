@@ -13,7 +13,7 @@ body {
 	color: #364937;
 }
 .key {
-	position: fixed;
+	position: absolute;
     width: 20px;
     height: 100vh;
 }
