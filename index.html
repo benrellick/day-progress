@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Pixel Day Clock</title>
+	<link rel="stylesheet" href="styles.css">
+	<script src="suncalc.js"></script>
+	<script>
+		window.addEventListener('DOMContentLoaded', (event) => {
+
+			// Set a timeout in milliseconds at which point the indicator advances to the next block
+			function setBlockTimeout(seconds) {
+				console.log("SET!");
+				setTimeout(() => {
+					advanceBlock();
+				}, seconds*1000)
+			}
+
+			// Remove the indicator from the present block, count it as passed time, move to the next block, set 60 sec timeout
+			function advanceBlock() {
+				let currentMinute = document.querySelector('.is-current');
+				let nextSibling = currentMinute.nextSibling;
+				currentMinute.classList.remove('is-current')
+				currentMinute.classList.add('has-passed');
+				nextSibling.classList.add('is-current');
+				setBlockTimeout(60);
+			}
+
+			// Get location lat and lng
+			const queryString = window.location.search;
+			const urlParams = new URLSearchParams(queryString);
+			const location = urlParams.get('location');
+			// If "?location=" query string exists, set lat and lng and save to local storage
+			if (location) {
+				// TODO: only using this API key for testing
+				fetch('https://maps.googleapis.com/maps/api/geocode/json?address='+location+'&key=AIzaSyBEdoCNlCd9w7olNPnleeoDw8a30YMbFX0')
+					.then((response) => response.json())
+					.then((data) => {
+						console.log(data);
+						var lat = data.results[0].geometry.location.lat;
+						let lng = data.results[0].geometry.location.lng;
+						console.log("lat: ",lat);
+						console.log("lng: ",lng);
+						localStorage.setItem('pdc_lat', lat);
+						localStorage.setItem('pdc_lng', lng);
+					});
+			}
+			// Try to get lat & lng from local storage, otherwise default to Harrisonburg
+			const lat = (localStorage.getItem('pdc_lat')) ? localStorage.getItem('pdc_lat') : 38.4;
+			const lng = (localStorage.getItem('pdc_lng')) ? localStorage.getItem('pdc_lng') : -78.8;
+
+			// Get current time in minutes and seconds left in current minute
+			const now = new Date();
+			const currentTimeInMinutes = now.getHours() * 60 + now.getMinutes();
+			const secondsLeftInCurrentMinte = 60 - now.getSeconds();
+			console.log(secondsLeftInCurrentMinte);
+			setBlockTimeout(secondsLeftInCurrentMinte);
+
+			// Get sunrise and sunset in minutes
+			let sunTimes = SunCalc.getTimes(new Date(), lat, lng);
+			console.log("sunTimes",sunTimes);
+			const sunriseInMinutes = sunTimes.sunrise.getHours() * 60 + sunTimes.sunrise.getMinutes();
+			const sunsetInMinutes = sunTimes.sunset.getHours() * 60 + sunTimes.sunset.getMinutes();
+
+			// Create 1440 divs, one for each minute in the day
+			const parentElement = document.querySelector('.wrapper');
+			for (let i = 0; i < 1440; i++) {
+				const childElement = document.createElement('div');
+				parentElement.appendChild(childElement);
+			}
+
+			// Assign each minute block as being either daytime or nighttime and indicate the current minute
+			const minuteBlocks = document.querySelectorAll('.wrapper div');
+			for (let i = 0; i < minuteBlocks.length; i++) {
+				// Denote whether block is day or night
+				let timeOfDay = (i >= sunriseInMinutes && i <= sunsetInMinutes) ? 'is-day' : 'is-night';
+				minuteBlocks[i].classList.add(timeOfDay)
+				// Denote time passed
+				if (i < currentTimeInMinutes) {
+					minuteBlocks[i].classList.add('has-passed');
+				}
+			}
+			// Indicate the current minute 
+			minuteBlocks[currentTimeInMinutes].classList.add('is-current');
+
+		});
+	</script>
+</head>
+
+<body>
+	<div class="key">
+		<div>12</div>
+		<div>1</div>
+		<div>2</div>
+		<div>3</div>
+		<div>4</div>
+		<div>5</div>
+		<div>6</div>
+		<div>7</div>
+		<div>8</div>
+		<div>9</div>
+		<div>10</div>
+		<div>11</div>
+		<div>12</div>
+		<div>1</div>
+		<div>2</div>
+		<div>3</div>
+		<div>4</div>
+		<div>5</div>
+		<div>6</div>
+		<div>7</div>
+		<div>8</div>
+		<div>9</div>
+		<div>10</div>
+		<div>11</div>
+	</div>
+	<div class="wrapper"></div>
+	<div class="overlay"></div>
+</body>

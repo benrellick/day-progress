@@ -1,0 +1,63 @@
+/* Colors */
+:root {
+	--primary: #000;
+	--background: #171c1a;
+	--day-color: #b1c39b;
+}
+body {
+	background: var(--background);
+	padding: 0;
+	margin: 0;
+	font-family: sans-serif;
+	font-size: 12px;
+	color: #364937;
+}
+.key {
+	position: fixed;
+    width: 20px;
+    height: 100vh;
+}
+.key div {
+	display: block;
+	height: calc(4vh);
+	width: 100%;
+    text-align: center;
+}
+.wrapper {
+	display: grid;
+	grid-template-columns: repeat(30, 1fr);
+    grid-template-rows: repeat(50, 1fr);
+    height: 100vh;
+    width: calc(100vw-20px);
+    transition: background-color 0.4s;
+    margin-left: 20px;
+}
+.wrapper div {
+	display: block;
+	width: 100%;
+	height: 100%;
+	border: 1px solid #4b504a;
+}
+.is-night {
+	background: #203530;
+}
+.is-day {
+	background: var(--day-color);
+}
+.has-passed {
+	opacity: 0.2;
+}
+.is-current {
+	animation: 1s infinite flash;
+}
+@keyframes flash {
+	0% {
+		background: white;
+	}
+	50% {
+		background: #203530;
+	}
+	100% {
+		background: white;
+	}
+}
