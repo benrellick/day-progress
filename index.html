@@ -1,6 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
+	<!-- Google tag (gtag.js) -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=G-GG0G3WFTV6"></script>
+	<script>
+	  window.dataLayer = window.dataLayer || [];
+	  function gtag(){dataLayer.push(arguments);}
+	  gtag('js', new Date());
+
+	  gtag('config', 'G-GG0G3WFTV6');
+	</script>
+
 	<meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="mobile-web-app-capable" content="yes">
@@ -10,6 +21,9 @@
 	<script src="suncalc.js"></script>
 	<script>
 		window.addEventListener('DOMContentLoaded', (event) => {
+
+			// Settings
+			let blockAnimationMsDelay = 3;
 
 			// Set a timeout in milliseconds at which point the indicator advances to the next block
 			function setBlockTimeout(seconds) {
@@ -29,9 +43,17 @@
 				setBlockTimeout(60);
 			}
 
-			// Get location lat and lng
+			// Get query strings
 			const queryString = window.location.search;
 			const urlParams = new URLSearchParams(queryString);
+
+			// Set light theme
+			const theme = urlParams.get('theme');
+			if (theme == 'light') {
+				document.querySelector('body').classList.add('light');
+			}
+
+			// Get location lat and lng
 			const location = urlParams.get('location');
 			// If "?location=" query string exists, set lat and lng and save to local storage
 			if (location) {
@@ -42,21 +64,24 @@
 						console.log(data);
 						var lat = data.results[0].geometry.location.lat;
 						let lng = data.results[0].geometry.location.lng;
+						let setLocation = data.results[0].formatted_address;
 						console.log("lat: ",lat);
 						console.log("lng: ",lng);
+						console.log("setLocation: ",setLocation);
 						localStorage.setItem('pdc_lat', lat);
 						localStorage.setItem('pdc_lng', lng);
+						localStorage.setItem('pdc_setLocation', setLocation);
 					});
 			}
 			// Try to get lat & lng from local storage, otherwise default to Harrisonburg
 			const lat = (localStorage.getItem('pdc_lat')) ? localStorage.getItem('pdc_lat') : 38.4;
 			const lng = (localStorage.getItem('pdc_lng')) ? localStorage.getItem('pdc_lng') : -78.8;
+			const setLocation = (localStorage.getItem('pdc_setLocation')) ? localStorage.getItem('pdc_setLocation') : "Default (Harrisonburg)";
 
 			// Get current time in minutes and seconds left in current minute
 			const now = new Date();
 			const currentTimeInMinutes = now.getHours() * 60 + now.getMinutes();
 			const secondsLeftInCurrentMinte = 60 - now.getSeconds();
-			console.log(secondsLeftInCurrentMinte);
 			setBlockTimeout(secondsLeftInCurrentMinte);
 
 			// Get sunrise and sunset in minutes
@@ -65,6 +90,15 @@
 			const sunriseInMinutes = sunTimes.sunrise.getHours() * 60 + sunTimes.sunrise.getMinutes();
 			const sunsetInMinutes = sunTimes.sunset.getHours() * 60 + sunTimes.sunset.getMinutes();
 
+			// Logs
+			console.log("Current time in minutes: ",currentTimeInMinutes);
+			console.log("Sunrise in minutes: ",sunriseInMinutes);
+			console.log("Sunset in minutes: ",sunsetInMinutes);
+			console.log("Sunrise: ",sunTimes.sunrise);
+			console.log("Sunset: ",sunTimes.sunset);
+			console.log("Current time: ", now);
+			console.log("Seconds left in current minute: ",secondsLeftInCurrentMinte);
+
 			// Create 1440 divs, one for each minute in the day
 			const parentElement = document.querySelector('.wrapper');
 			for (let i = 0; i < 1440; i++) {
@@ -72,25 +106,86 @@
 				parentElement.appendChild(childElement);
 			}
 
-			// Assign each minute block as being either daytime or nighttime and indicate the current minute
+			// Assign each minute block as being either daytime or nighttime
 			const minuteBlocks = document.querySelectorAll('.wrapper div');
 			for (let i = 0; i < minuteBlocks.length; i++) {
 				// Denote whether block is day or night
 				let timeOfDay = (i >= sunriseInMinutes && i <= sunsetInMinutes) ? 'is-day' : 'is-night';
 				minuteBlocks[i].classList.add(timeOfDay)
-				// Denote time passed
-				if (i < currentTimeInMinutes) {
-					minuteBlocks[i].classList.add('has-passed');
-				}
 			}
+
 			// Indicate the current minute 
-			minuteBlocks[currentTimeInMinutes].classList.add('is-current');
+			let currentMinute = minuteBlocks[currentTimeInMinutes];
+			currentMinute.classList.add('is-current');
+			currentMinute.classList.add('stop-animation');
+
+			// Denote time passed, show as an animation
+			const delay = i => i * blockAnimationMsDelay;
+			setTimeout(() => {
+			  minuteBlocks.forEach((block, i) => {
+			    if (i < currentTimeInMinutes) {
+			      setTimeout(() => block.classList.add('has-passed'), delay(i));
+			    }
+			  });
+			}, 1000);
+
+			setTimeout(() => {
+				currentMinute.classList.remove('stop-animation');
+			}, (currentTimeInMinutes * blockAnimationMsDelay) + 2000);
 
 			// Interactions
 			let options = document.querySelector('.options');
 			options.addEventListener('click', function() {
 				options.classList.toggle('expanded');
 			}, false);
+
+			// Calculate some stats to display on screen
+			// Get... percent of sunlight minutes left in the day
+			const totalSunlightInMinutes = sunsetInMinutes - sunriseInMinutes;
+			const minutesTilSunset = sunsetInMinutes - currentTimeInMinutes;
+			const percentOfSunlightMinutesLeft = (minutesTilSunset > totalSunlightInMinutes) ? 100 : ((minutesTilSunset/totalSunlightInMinutes)*100).toFixed(2);
+			// Get... Percent of the day that is sunlight
+			const percentOfSunlightInMinutes = ((totalSunlightInMinutes / 1440) * 100).toFixed(2);
+			// Get... Sunrise and sunset strings
+			const sunriseString = sunTimes.sunrise.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', second: 'numeric', hour12: true});
+			const sunsetString = sunTimes.sunset.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', second: 'numeric', hour12: true});
+
+			// Populate progress section
+			const progressHeading = document.querySelector('.progress__heading');
+			progressHeading.textContent = percentOfSunlightMinutesLeft+'%';
+			document.querySelector('.progress__wrapper-inner').style.width = percentOfSunlightMinutesLeft+'%';
+
+			function addLine(textContent) {
+				const li = document.createElement('li');
+				li.textContent = textContent;
+				ul.appendChild(li);
+				optionsInner.appendChild(ul);
+			}
+
+			// Temporary
+			const optionsInner = document.querySelector('.options__inner');
+			const ul = document.createElement('ul');
+			addLine('NOTES');
+			addLine('- currently, the progress bar above only updates on page refresh');
+			addLine('- use "?theme=light" in the url to change the theme');
+			addLine('- use "?location=" and a city/zipcode to set a new location')
+			addLine('----');
+			addLine('RAW DATA BELOW');
+			addLine('--------');
+			addLine('% OF SUNLIGHT MINUTES LEFT: '+percentOfSunlightMinutesLeft+"%");
+			addLine('LOCATION: '+setLocation);
+			addLine('TOTAL MINUTES OF SUNLIGHT: '+totalSunlightInMinutes);
+			addLine('PERCENT OF THE DAY IN SUNLIGHT: '+percentOfSunlightInMinutes+'%');
+			addLine('SUNRISE: '+sunriseString);
+			addLine('SUNSET: '+sunsetString);
+
+			// Log more
+			console.log("DATA, % left: ", percentOfSunlightMinutesLeft);
+			console.log("DATA, setLocation: ", setLocation);
+			console.log("DATA, totalSunlightInMinutes: ", totalSunlightInMinutes);
+			console.log("DATA, percentOfSunlightInMinutes: ", percentOfSunlightInMinutes);
+			console.log("DATA, sunriseString: ", sunriseString);
+			console.log("DATA, sunsetString: ", sunsetString);	
 
 		});
 	</script>
@@ -125,5 +220,17 @@
 	</div>
 	<div class="wrapper"></div>
 	<div class="overlay"></div>
-	<div class="options"></div>
+	<div class="options">
+		<div class="options__inner">
+
+			<div class="progress__outer">
+				<h2 class="progress__heading">100%</h2>
+				<p class="progress_text">sunlight minutes left</p>
+				<div class="progress__wrapper">
+					<span class="progress__wrapper-inner"></span>
+				</div>
+			</div>
+
+		</div><!-- end options__inner -->
+	</div>
 </body>

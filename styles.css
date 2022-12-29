@@ -37,6 +37,7 @@ body {
 	width: 100%;
 	height: 100%;
 	border: 1px solid #4b504a;
+	transition: opacity 0.8s ease-in-out;
 }
 .is-night {
 	background: #203530;
@@ -49,6 +50,10 @@ body {
 }
 .is-current {
 	animation: 1s infinite flash;
+}
+.is-current.stop-animation {
+	animation: none;
+	background: #fff;
 }
 .options {
 	position: fixed;
@@ -75,6 +80,66 @@ body {
     bottom: 0;
     right: 0;
 }
+.options__inner {
+	padding: 60px 20px;
+	opacity: 0;
+	transition: opacity 0.2s ease-in-out;
+}
+.options.expanded .options__inner {
+	opacity: 1;
+}
+.options__inner ul {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+.options__inner li {
+
+}
+
+/* Progress */
+.progress__outer {
+	text-align: center;
+	margin-bottom: 40px;
+}
+.progress__heading {
+	font-size: 36px;
+	margin: 0;
+	padding: 0;
+}
+.progress_text {
+	text-transform: uppercase;
+	color: #888;
+	margin-top: 0;
+	letter-spacing: 1px;
+	font-weight: bold;
+	font-size: 10px;
+	margin-bottom: 10px;
+}
+.progress__wrapper {
+	background: #e6e6e6;
+	width: 100%;
+	display: block;
+	height: 7px;
+	border-radius: 10px;
+}
+.progress__wrapper-inner {
+	display: block;
+	height: 5px;
+	background: #b1c39b;
+	border-radius: 10px;
+	border: 1px solid #4c4e49;
+	margin: 0 auto;
+	width: 100%;
+	float: left;
+	transition: width 1s ease-in-out;
+}
+
+
+
+
+
+
 @keyframes flash {
 	0% {
 		background: white;
@@ -85,4 +150,29 @@ body {
 	100% {
 		background: white;
 	}
+}
+
+/* Light theme */
+body.light {
+	background: #fff;
+}
+body.light .wrapper {
+	gap: 4px;
+}
+body.light .wrapper div {
+	border-radius: 2px;
+	border: none;
+}
+body.light .is-night {
+	background: #d5d5d5;
+}
+body.light .is-day {
+	background: #ffc600;
+}
+body.light .progress__wrapper {
+	background: #fff5d1;
+}
+body.light .progress__wrapper-inner {
+	background: #ffc600;
+	border: 1px solid #ffc600;
 }
