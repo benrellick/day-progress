@@ -10,7 +10,7 @@ body {
 	margin: 0;
 	font-family: sans-serif;
 	font-size: 12px;
-	color: #364937;
+	color: #111111;
 }
 .key {
 	position: absolute;
@@ -22,6 +22,7 @@ body {
 	height: 4vh;
 	width: 100%;
     text-align: center;
+    color: #364937;
 }
 .wrapper {
 	display: grid;
@@ -74,7 +75,7 @@ body {
 }
 .options.expanded {
 	width: 100%;
-    border-radius: 5px;
+    border-radius: 12px;
     height: 400px;
     background-position: 20px 20px;
     bottom: 0;
@@ -117,7 +118,7 @@ body {
 	margin-bottom: 10px;
 }
 .progress__wrapper {
-	background: #e6e6e6;
+	background: #eeeeee;
 	width: 100%;
 	display: block;
 	height: 7px;
@@ -125,13 +126,12 @@ body {
 }
 .progress__wrapper-inner {
 	display: block;
-	height: 5px;
+	height: 7px;
 	background: #b1c39b;
 	border-radius: 10px;
-	border: 1px solid #4c4e49;
 	margin: 0 auto;
 	width: 100%;
-	float: left;
+	float: right;
 	transition: width 1s ease-in-out;
 }
 
@@ -158,6 +158,12 @@ body {
 	.wrapper {
 		height: 90vh;
 	}
+	.options.expanded {
+		width: 50%;
+		bottom: 5%;
+    	right: 5%;
+	}
+
 	/* force fullscreen (for testing tablet/desktop) */
 	body.forcefullscreen .key div {
 		height: 4;
@@ -172,7 +178,11 @@ body {
 
 /* Light theme */
 body.theme-light {
-	background: #fff;
+	background: #fff9e3;
+}
+body.theme-light .key div {
+	color: #ffc600;
+    font-weight: bold;
 }
 body.theme-light .wrapper {
 	gap: 4px;
@@ -187,10 +197,12 @@ body.theme-light .is-night {
 body.theme-light .is-day {
 	background: #ffc600;
 }
+body.theme-light .options {
+	box-shadow: 0 10px 10px rgb(0 0 0 / 10%);
+}
 body.theme-light .progress__wrapper {
 	background: #fff5d1;
 }
 body.theme-light .progress__wrapper-inner {
 	background: #ffc600;
-	border: 1px solid #ffc600;
 }
