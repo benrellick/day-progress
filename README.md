@@ -1,4 +1,5 @@
-# pixel-day-clock
+# day-progress
+This web app shows you your day as a progress bar of 1,440 minutes, color coded to show daylight vs nighttime.
 
 ## Current functionality
 - Visually represents how much of the day had passed and shows current minute
@@ -13,7 +14,7 @@
 - Adjusts sunrise and sunset duration to location but shows that (and current time) in device timezone, not timezone at location
 - Location lookup currently exposes location API, use netlify function instead
 - Browser chrome on mobile causes vertical scroll, can’t see all minutes at once
-- Between sunset and midnight, the "% of daylight minutes left" shows a negative percentage
+- Between sunset and midnight, the "% of daylight minutes left" shows a negative percentage - ✅ 1/8/23
 
 ## To add
 - % of daylight minutes left - ✅ 12/29/22
@@ -35,10 +36,10 @@
 
 # Changelog
 - 12/24/22
- - Created repo
+  - Created repo
 - 12/25/22
- - Basic functionality
+  - Basic functionality
 - 12/29/22
- - Add light theme 
- - Add progress bar to menu showing % of daylight minutes left + other stats
- - Add google analytics
+  - Add light theme 
+  - Add progress bar to menu showing % of daylight minutes left + other stats
+  - Add google analytics
