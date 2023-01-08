@@ -19,7 +19,7 @@ body {
 }
 .key div {
 	display: block;
-	height: calc(4vh);
+	height: 4vh;
 	width: 100%;
     text-align: center;
 }
@@ -136,10 +136,6 @@ body {
 }
 
 
-
-
-
-
 @keyframes flash {
 	0% {
 		background: white;
@@ -152,27 +148,49 @@ body {
 	}
 }
 
+@media screen and (min-width: 768px) {
+	.key div {
+		height: 3.6vh;
+	}
+	body {
+		padding: 5vh 25%;
+	}
+	.wrapper {
+		height: 90vh;
+	}
+	/* force fullscreen (for testing tablet/desktop) */
+	body.forcefullscreen .key div {
+		height: 4;
+	}
+	body.forcefullscreen  {
+		padding: 0;
+	}
+	body.forcefullscreen .wrapper {
+		height: 100vh;
+	}
+}
+
 /* Light theme */
-body.light {
+body.theme-light {
 	background: #fff;
 }
-body.light .wrapper {
+body.theme-light .wrapper {
 	gap: 4px;
 }
-body.light .wrapper div {
+body.theme-light .wrapper div {
 	border-radius: 2px;
 	border: none;
 }
-body.light .is-night {
+body.theme-light .is-night {
 	background: #d5d5d5;
 }
-body.light .is-day {
+body.theme-light .is-day {
 	background: #ffc600;
 }
-body.light .progress__wrapper {
+body.theme-light .progress__wrapper {
 	background: #fff5d1;
 }
-body.light .progress__wrapper-inner {
+body.theme-light .progress__wrapper-inner {
 	background: #ffc600;
 	border: 1px solid #ffc600;
 }

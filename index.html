@@ -47,11 +47,19 @@
 			const queryString = window.location.search;
 			const urlParams = new URLSearchParams(queryString);
 
-			// Set light theme
-			const theme = urlParams.get('theme');
-			if (theme == 'light') {
-				document.querySelector('body').classList.add('light');
+			// Function to set body class based on query string
+			function setBodyClass(key, value, classToAdd) {
+				const theValue = urlParams.get(key);
+				if (theValue == value) {
+					document.querySelector('body').classList.add(classToAdd);
+				}
 			}
+
+			// Set light theme
+			setBodyClass('theme','light','theme-light');
+
+			// Force fullscreen (for testing tablet/desktop)
+			setBodyClass('forcefullscreen','true','forcefullscreen');
 
 			// Get location lat and lng
 			const location = urlParams.get('location');
