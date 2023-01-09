@@ -151,7 +151,7 @@
 			// Get... percent of sunlight minutes left in the day
 			const totalSunlightInMinutes = sunsetInMinutes - sunriseInMinutes;
 			const minutesTilSunset = sunsetInMinutes - currentTimeInMinutes;
-			const percentOfSunlightMinutesLeft = (minutesTilSunset > totalSunlightInMinutes) ? 100 : ((minutesTilSunset/totalSunlightInMinutes)*100).toFixed(0);
+			let percentOfSunlightMinutesLeft = (minutesTilSunset > totalSunlightInMinutes) ? 100 : ((minutesTilSunset/totalSunlightInMinutes)*100).toFixed(0);
 			if (percentOfSunlightMinutesLeft < 0) { percentOfSunlightMinutesLeft = 0 };
 
 			// Get... Percent of the day that is sunlight
