@@ -356,6 +356,7 @@ body.theme-light .options {
 }
 body.theme-light .progress__wrapper {
 	background: #fff5d1;
+	border: 1px solid #ffc600;
 }
 body.theme-light .progress__wrapper-inner {
 	background: #ffc600;
