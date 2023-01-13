@@ -132,13 +132,14 @@ body {
 	margin: 0 10%;
 }
 .progress__wrapper {
-	background: #fff;
+	background: #e3ebd9;
 	width: 100%;
 	display: block;
 	height: 7px;
 	border-radius: 10px;
 	margin: 0 auto;
-	border: 1px solid #b1c39b;;
+	border: 3px solid #ffffff;
+	box-shadow: 0 0 10px rgb(0 0 0 / 20%);
 }
 .progress__wrapper-inner {
 	display: block;
@@ -305,6 +306,7 @@ body.theme-light {
 }
 body.theme-light .key div {
 	color: #ffc600;
+	color: #cabc82;
     font-weight: bold;
 }
 body.theme-light .wrapper {
@@ -316,6 +318,7 @@ body.theme-light .wrapper div {
 }
 body.theme-light .is-night {
 	background: #d5d5d5;
+	background: #c8be95;
 }
 body.theme-light .is-day {
 	background: #ffc600;
@@ -329,35 +332,6 @@ body.theme-light .progress__wrapper {
 body.theme-light .progress__wrapper-inner {
 	background: #ffc600;
 }
-
-/* Light gold  */
-body.theme-light {
-	background: #fff9e3;
-}
-body.theme-light .key div {
-	color: #ffc600;
-    font-weight: bold;
-}
-body.theme-light .wrapper {
-	gap: 4px;
-}
-body.theme-light .wrapper div {
-	border-radius: 2px;
-	border: none;
-}
-body.theme-light .is-night {
-	background: #d5d5d5;
-}
-body.theme-light .is-day {
-	background: #ffc600;
-}
-body.theme-light .options {
-	box-shadow: 0 10px 10px rgb(0 0 0 / 10%);
-}
-body.theme-light .progress__wrapper {
-	background: #fff5d1;
-	border: 1px solid #ffc600;
-}
-body.theme-light .progress__wrapper-inner {
-	background: #ffc600;
+body.theme-light .progress__wrapper-outer {
+	background: #f7f2e0;
 }
