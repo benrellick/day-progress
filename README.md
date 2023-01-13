@@ -18,9 +18,9 @@ This web app shows you your day as a progress bar of 1,440 minutes, color coded 
 
 ## To add
 - % of daylight minutes left - ✅ 12/29/22
-- Number of daylight minutes (% of day)
-- Sunrise time
-- Sunset time
+- Number of daylight minutes (% of day) - ✅ 1/13/23
+- Sunrise time - ✅ 1/13/23
+- Sunset time - ✅ 1/13/23
 - Minute progress bar
 
 ## Preference settings to add
@@ -43,3 +43,7 @@ This web app shows you your day as a progress bar of 1,440 minutes, color coded 
   - Add light theme 
   - Add progress bar to menu showing % of daylight minutes left + other stats
   - Add google analytics
+- 1/8/23
+  - Clean up progress bar
+- 1/13/23
+  - Add stats to the menu UI and style them

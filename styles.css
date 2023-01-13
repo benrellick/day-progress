@@ -4,6 +4,12 @@
 	--background: #171c1a;
 	--day-color: #b1c39b;
 }
+/* Potential color scheme */
+/*
+	Yellow: #becb73;
+	Navy: #1a2e31;
+*/
+
 body {
 	background: var(--background);
 	padding: 0;
@@ -69,20 +75,21 @@ body {
     background-position: center center;
     background-size: 15px;
     background-repeat: no-repeat;
+    overflow: hidden;
 }
 .options:hover {
 	cursor: pointer;
 }
 .options.expanded {
 	width: 100%;
-    border-radius: 12px;
+    border-radius: 12px 12px 0 0;
     height: 400px;
     background-position: 20px 20px;
     bottom: 0;
     right: 0;
 }
 .options__inner {
-	padding: 60px 20px;
+	padding: 40px 0;
 	opacity: 0;
 	transition: opacity 0.2s ease-in-out;
 }
@@ -102,6 +109,7 @@ body {
 .progress__outer {
 	text-align: center;
 	margin-bottom: 40px;
+	position: relative;
 }
 .progress__heading {
 	font-size: 36px;
@@ -117,12 +125,20 @@ body {
 	font-size: 10px;
 	margin-bottom: 10px;
 }
+.progress__wrapper-outer { /* LOL okay this is a fucked up selector */
+	background: #eee;
+	border-radius: 10px;
+	width: 80%;
+	margin: 0 10%;
+}
 .progress__wrapper {
-	background: #eeeeee;
+	background: #fff;
 	width: 100%;
 	display: block;
 	height: 7px;
 	border-radius: 10px;
+	margin: 0 auto;
+	border: 1px solid #b1c39b;;
 }
 .progress__wrapper-inner {
 	display: block;
@@ -134,6 +150,112 @@ body {
 	float: right;
 	transition: width 1s ease-in-out;
 }
+
+/* Sunrise and sunset times */
+.suntimeswrapper {
+	position: relative;
+	text-align: center;
+	display: block;
+	height: 72px;
+	border-top: 1px solid #ddd;
+	background: #f9f9f9;
+}
+.sunrisetime,
+.sunsettime {
+	position: absolute;
+	padding-top: 10px;
+	box-sizing: border-box;
+}
+.sunrisetime {
+	left: 0;
+	width: 50%;
+}
+.sunsettime {
+	right: 0;
+	width: 50%;
+    border-left: 1px solid #ddd;
+}
+.sunrisetime__heading,
+.sunsettime__heading {
+	margin-top: 0;
+}
+.sunrisetime__heading {
+}
+.sunsettime__heading {
+}
+
+/* Sunlight minutes */
+.sunlightminutes {
+	position: relative;
+	text-align: center;
+	display: block;
+	height: 85px;
+    border-top: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+    background: #f9f9f9;
+}
+.totalsunlightminutes,
+.percentinsunlight {
+	position: absolute;
+	padding-top: 10px;
+	height: 85px;
+	box-sizing: border-box;
+}
+.totalsunlightminutes {
+	left: 0;
+	width: 50%;
+}
+.percentinsunlight {
+	right: 0;
+	width: 50%;
+    border-left: 1px solid #ddd;
+}
+.totalsunlightminutes__heading,
+.percentinsunlight__heading {
+	font-size: 24px;
+	margin-top: 10px;
+	margin-bottom: 0;
+}
+.totalsunlightminutes__label,
+.percentinsunlight__label {
+	margin: 0;
+	padding: 0;
+	text-transform: uppercase;
+	color: #888;
+	letter-spacing: 1px;
+	font-weight: bold;
+	font-size: 10px;
+	margin: 5px auto 10px;
+	margin-bottom: 10px;
+	width: 75%;
+}
+
+/* Location */
+.location {
+    text-align: center;
+    border-left: 0;
+    padding-top: 15px;
+    background: #f9f9f9;
+    height: 85px;
+}
+.location__heading {
+	font-size: 18px;
+	margin-top: 10px;
+    margin-bottom: 0;
+}
+.location__label {
+	margin: 0;
+	padding: 0;
+	text-transform: uppercase;
+	color: #888;
+	letter-spacing: 1px;
+	font-weight: bold;
+	font-size: 10px;
+	margin: 5px auto 10px;
+	margin-bottom: 10px;
+}
+
+
 
 
 @keyframes flash {
@@ -162,6 +284,7 @@ body {
 		width: 50%;
 		bottom: 5%;
     	right: 5%;
+    	border-radius: 12px;
 	}
 
 	/* force fullscreen (for testing tablet/desktop) */
@@ -177,6 +300,37 @@ body {
 }
 
 /* Light theme */
+body.theme-light {
+	background: #fff9e3;
+}
+body.theme-light .key div {
+	color: #ffc600;
+    font-weight: bold;
+}
+body.theme-light .wrapper {
+	gap: 4px;
+}
+body.theme-light .wrapper div {
+	border-radius: 2px;
+	border: none;
+}
+body.theme-light .is-night {
+	background: #d5d5d5;
+}
+body.theme-light .is-day {
+	background: #ffc600;
+}
+body.theme-light .options {
+	box-shadow: 0 10px 10px rgb(0 0 0 / 10%);
+}
+body.theme-light .progress__wrapper {
+	background: #fff5d1;
+}
+body.theme-light .progress__wrapper-inner {
+	background: #ffc600;
+}
+
+/* Light gold  */
 body.theme-light {
 	background: #fff9e3;
 }

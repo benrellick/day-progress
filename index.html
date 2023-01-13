@@ -157,13 +157,28 @@
 			// Get... Percent of the day that is sunlight
 			const percentOfSunlightInMinutes = ((totalSunlightInMinutes / 1440) * 100).toFixed(2);
 			// Get... Sunrise and sunset strings
-			const sunriseString = sunTimes.sunrise.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', second: 'numeric', hour12: true});
-			const sunsetString = sunTimes.sunset.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', second: 'numeric', hour12: true});
+			const sunriseString = sunTimes.sunrise.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true});
+			const sunsetString = sunTimes.sunset.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true});
 
 			// Populate progress section
 			const progressHeading = document.querySelector('.progress__heading');
 			progressHeading.textContent = percentOfSunlightMinutesLeft+'%';
 			document.querySelector('.progress__wrapper-inner').style.width = percentOfSunlightMinutesLeft+'%';
+			document.querySelector('.progress__wrapper').style.width = percentOfSunlightInMinutes+'%';
+
+			// Populate stats
+			const sunriseHeading = document.querySelector('.sunrisetime__heading');
+			sunriseHeading.textContent = sunriseString;
+			const sunsetHeading = document.querySelector('.sunsettime__heading');
+			sunsetHeading.textContent = sunsetString;
+			const totalsunlightminutesHeading = document.querySelector('.totalsunlightminutes__heading');
+			totalsunlightminutesHeading.textContent = (Math.floor(totalSunlightInMinutes/60))+'hr'+' '+(totalSunlightInMinutes%60)+'m';
+			const percentinsunlightHeading = document.querySelector('.percentinsunlight__heading');
+			percentinsunlightHeading.textContent = percentOfSunlightInMinutes+'%';
+			const locationHeading = document.querySelector('.location__heading');
+			locationHeading.textContent = setLocation;
+
+
 
 			function addLine(textContent) {
 				const li = document.createElement('li');
@@ -173,21 +188,12 @@
 			}
 
 			// Temporary
-			const optionsInner = document.querySelector('.options__inner');
+			/*const optionsInner = document.querySelector('.options__inner');
 			const ul = document.createElement('ul');
 			addLine('NOTES');
 			addLine('- currently, the progress bar above only updates on page refresh');
 			addLine('- use "?theme=light" in the url to change the theme');
-			addLine('- use "?location=" and a city/zipcode to set a new location')
-			addLine('----');
-			addLine('RAW DATA BELOW');
-			addLine('--------');
-			addLine('% OF SUNLIGHT MINUTES LEFT: '+percentOfSunlightMinutesLeft+"%");
-			addLine('LOCATION: '+setLocation);
-			addLine('TOTAL MINUTES OF SUNLIGHT: '+totalSunlightInMinutes);
-			addLine('PERCENT OF THE DAY IN SUNLIGHT: '+percentOfSunlightInMinutes+'%');
-			addLine('SUNRISE: '+sunriseString);
-			addLine('SUNSET: '+sunsetString);
+			addLine('- use "?location=" and a city/zipcode to set a new location')*/
 
 			// Log more
 			console.log("DATA, % left: ", percentOfSunlightMinutesLeft);
@@ -236,9 +242,38 @@
 			<div class="progress__outer">
 				<h2 class="progress__heading">100%</h2>
 				<p class="progress_text">of the daylight left</p>
-				<div class="progress__wrapper">
-					<span class="progress__wrapper-inner"></span>
+				<div class="progress__wrapper-outer">
+					<div class="progress__wrapper">
+						<span class="progress__wrapper-inner"></span>
+					</div>
 				</div>
+			</div>
+
+			<div class="suntimeswrapper">
+				<div class="sunrisetime">
+					<img src="src/sunrise_icon.svg" />
+					<h2 class="sunrisetime__heading"></h2>
+				</div>
+				<div class="sunsettime">
+					<img src="src/sunset_icon.svg" />
+					<h2 class="sunsettime__heading"></h2>
+				</div>
+			</div>
+
+			<div class="sunlightminutes">
+				<div class="totalsunlightminutes">
+					<h2 class="totalsunlightminutes__heading"></h2>
+					<p class="totalsunlightminutes__label">Hours in sunlight</p>
+				</div>
+				<div class="percentinsunlight">
+					<h2 class="percentinsunlight__heading"></h2>
+					<p class="percentinsunlight__label">% of day in sunlight</p>
+				</div>
+			</div>
+
+			<div class="location">
+				<h2 class="location__heading"></h2>
+				<p class="location__label">Location</p>
 			</div>
 
 		</div><!-- end options__inner -->
