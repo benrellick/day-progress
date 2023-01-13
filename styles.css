@@ -8,6 +8,11 @@
 /*
 	Yellow: #becb73;
 	Navy: #1a2e31;
+
+Coral theme
+	Day: #ffa8b6;
+		Or maybe this: #ff9579;
+	Night: #cddefb;
 */
 
 body {
@@ -264,7 +269,7 @@ body {
 		background: white;
 	}
 	50% {
-		background: #203530;
+		background: #222222;
 	}
 	100% {
 		background: white;
@@ -335,3 +340,43 @@ body.theme-light .progress__wrapper-inner {
 body.theme-light .progress__wrapper-outer {
 	background: #f7f2e0;
 }
+
+/* Light theme */
+body.theme-coral {
+	background: #ffffff;
+}
+body.theme-coral .key div {
+	color: #999999;
+    font-weight: bold;
+}
+body.theme-coral .wrapper {
+	gap: 4px;
+}
+body.theme-coral .wrapper div {
+	border-radius: 2px;
+	border: none;
+}
+body.theme-coral .is-night {
+	background: #bcc7da;
+}
+body.theme-coral .is-day {
+	background: #ff9579;
+}
+body.theme-coral .options {
+	box-shadow: 0 5px 30px rgb(0 0 0 / 20%);
+}
+body.theme-coral .progress__wrapper {
+	background: #ffddd4;
+}
+body.theme-coral .progress__wrapper-inner {
+	background: #ff9579;
+}
+body.theme-coral .progress__wrapper-outer {
+	background: #f6f8ff;
+}
+body.theme-coral .suntimeswrapper,
+body.theme-coral .sunlightminutes,
+body.theme-coral .location {
+	background: #f6f8ff;
+}
+

@@ -47,3 +47,4 @@ This web app shows you your day as a progress bar of 1,440 minutes, color coded 
   - Clean up progress bar
 - 1/13/23
   - Add stats to the menu UI and style them
+  - Add "coral" theme
