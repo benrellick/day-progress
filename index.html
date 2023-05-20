@@ -49,18 +49,26 @@
 			const urlParams = new URLSearchParams(queryString);
 
 			// Function to set body class based on query string
-			function setBodyClass(key, value, classToAdd) {
+			function setBodyClass(key, value, classToAdd, main) {
 				const theValue = urlParams.get(key);
+				const bodyClasses = document.querySelector('body').classList;
 				if (theValue == value) {
-					document.querySelector('body').classList.add(classToAdd);
+					bodyClasses.add(classToAdd);
 				}
 			}
 
 			// Set light theme
 			setBodyClass('theme','light','theme-light');
 
+			// Set matrix theme
+			setBodyClass('theme','matrix','theme-matrix');
+
 			// Set coral theme
 			setBodyClass('theme','coral','theme-coral');
+
+			if (document.querySelector('body').classList.length <= 0) {
+				document.querySelector('body').classList.add('theme-coral');
+			}
 
 			// Force fullscreen (for testing tablet/desktop)
 			setBodyClass('forcefullscreen','true','forcefullscreen');

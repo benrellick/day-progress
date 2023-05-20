@@ -22,6 +22,7 @@ body {
 	font-family: sans-serif;
 	font-size: 12px;
 	color: #111111;
+	padding: 20px 20px 20px 10px;
 }
 .key {
 	position: absolute;
@@ -378,5 +379,44 @@ body.theme-coral .suntimeswrapper,
 body.theme-coral .sunlightminutes,
 body.theme-coral .location {
 	background: #f6f8ff;
+}
+
+/* Matrix theme */
+body.theme-matrix {
+	background: var(--background);
+}
+body.theme-matrix .key div {
+	color: #364937;
+    font-weight: normal;
+}
+body.theme-matrix .wrapper {
+	gap: 0;
+}
+body.theme-matrix .wrapper div {
+	border-radius: 0;
+	border: 1px solid #4b504a;
+}
+body.theme-matrix .is-night {
+	background: #203530;
+}
+body.theme-matrix .is-day {
+	background: var(--day-color);
+}
+body.theme-matrix .options {
+	box-shadow: none;
+}
+body.theme-matrix .progress__wrapper {
+	background: #e3ebd9;
+}
+body.theme-matrix .progress__wrapper-inner {
+	background: #b1c39b;
+}
+body.theme-matrix .progress__wrapper-outer {
+	background: #eee;
+}
+body.theme-matrix .suntimeswrapper,
+body.theme-matrix .sunlightminutes,
+body.theme-matrix .location {
+	background: #f9f9f9;
 }
 
